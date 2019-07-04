@@ -99,6 +99,14 @@ module.exports = function (webpackEnv) {
           test: /\.less$/,
           exclude: /\.module\.less$/,
           use: ["style-loader", "css-loader", { loader: "less-loader", options: { javascriptEnabled: true } }] //适配 antd的online JavaScript
+        },
+
+        // 图片/文件 loader
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: [
+            'file-loader'
+          ]
         }
       ]
     },
@@ -106,7 +114,8 @@ module.exports = function (webpackEnv) {
       extensions: ["*", ".js", ".jsx"],
       alias: {
         "@src": path.resolve(__dirname, './src'),
-        "@pages": path.resolve(__dirname, './src/pages')
+        "@pages": path.resolve(__dirname, './src/pages'),
+        "@assets": path.resolve(__dirname, './src/assets')
       }
     },
     output: {

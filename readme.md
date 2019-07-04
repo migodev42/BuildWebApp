@@ -13,6 +13,7 @@
 - [x] 编译前clean `dist`目录(可选)
 - [x] `compress`代码编译压缩
 - [x] `sourceMap` 代码映射
+- [ ] 静态文件`loader` (图片O 音频X 视频X)
 - [ ] `bundle` 构成分析
 - [ ] `css`分离
 - [ ] `output` 输出定制 (文件名/引入依赖自动注入)
@@ -23,4 +24,4 @@
 
 // prod 环境使用代码压缩，生成sourceMap
 ``` 
-- [ ] 静态文件`loader` (图片/音频)
+
