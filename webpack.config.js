@@ -15,14 +15,69 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 //   console.log('生产环境');
 // }
 
-module.exports = function(webpackEnv){
-  console.log('webpack mode:',webpackEnv);
+module.exports = function (webpackEnv) {
+  console.log('webpack mode:', process.env.NODE_ENV);
+  // const NODE_ENV = process.env.NODE_ENV;
+  const isProduction = (process.env.NODE_ENV === 'production') ? true : false;
+
+  const setSourceMap = isProduction ? 'cheap-source-map' : '';
+  const useCompress = isProduction ? true : false;
+
+
+  console.log('webpack : sourceMap配置',setSourceMap);
+  function getProdPlugins() {
+    const plugins = [];
+
+    if (isProduction) {
+      // 用于生产环境的 plugins
+
+      // plugins.push(new UglifyJsPlugin({
+      //   sourceMap: true,
+      // }));
+
+      plugins.push(new webpack.DefinePlugin({                                    //指定生产环境 可以降低bundle构建大小
+        'process.env.NODE_ENV': JSON.stringify('production')
+      }))
+    }
+
+    console.log(plugins)
+    return plugins
+  }
+
+  const entry={
+    index: "./src/index.js",                            // 每个entry中包含 @babel/poolyfill 以支持ES最新语法
+    index2: "./src/index2.js",
+  }
+
+  /* 多 entry  polyfill */
+  function setMuityEntries(){
+    console.log('webpack : 开始生成entry');
+    const polyFilledEntry={};
+    Object.keys(entry).forEach(key=>{
+      polyFilledEntry[key]=["@babel/polyfill",entry[key]]
+    })
+    return polyFilledEntry
+  }
+
+  /* html 自动注入 bundle */
+  function setHtmlWebpackPlugin(){
+    console.log('webpack : 开始注入html',entry);
+    const htmlWebpackPlugins=[];
+    Object.keys(entry).forEach(key=>{
+      htmlWebpackPlugins.push(new HtmlWebpackPlugin({
+        title: 'HtmlWebpackPlugin'+key,                              // 名称
+        chunks: [key],                                              // 对应entry里面的key
+        template: path.resolve(__dirname, './public/index.html'),   // 待注入的 html模板文件
+        filename: `${key}.html`,                                    // 输出注入后的的 html文件名
+        inject: 'body'
+      }))
+    })    
+    return htmlWebpackPlugins;
+  }
+
   return {
-    entry: {
-      index1: ["@babel/polyfill", "./src/index.js"],                            // 每个entry中包含 @babel/poolyfill 以支持ES最新语法
-      index2: ["@babel/polyfill", "./src/index2.js"],
-    },
-    mode: "development",
+    entry: setMuityEntries(),
+    mode: isProduction ? "production" : "development",
     module: {
       rules: [
         // jsx 解析
@@ -32,26 +87,19 @@ module.exports = function(webpackEnv){
           loader: "babel-loader",
           options: { presets: ["@babel/env"] }
         },
+        
         {
           test: /\.css$/,
           use: ["style-loader", "css-loader"]
-  
-          /* css分离 */
-          // test: /\.css$/,
-          // use: extractCSS.extract([ 'css-loader', 'postcss-loader' ])
-        }, {
+          
+        }, 
+
+        // Less 解析
+        {
           test: /\.less$/,
           exclude: /\.module\.less$/,
           use: ["style-loader", "css-loader", { loader: "less-loader", options: { javascriptEnabled: true } }] //适配 antd的online JavaScript
-  
-          /* less分离 */
-          // test: /\.less$/i,
-          // use: extractLESS.extract([ 'css-loader', "less-loader"])
-          
         }
-  
-        // Less 解析
-  
       ]
     },
     resolve: {
@@ -68,7 +116,7 @@ module.exports = function(webpackEnv){
     },
     devServer: {
       // lazy: true,                                                 // 加载某个页面 才进行编译
-      compress: true,                                              // 代码压缩
+      compress: useCompress,                                              // 代码压缩
       open: true,                                                  // 自动打开浏览器
       hot: true,
       contentBase: path.resolve(__dirname, "public/"),            // 配置请求路径 此时访问 http://localhost:3000/ 实际为 http://localhost:3000/dist，默认为项目根目录
@@ -77,33 +125,11 @@ module.exports = function(webpackEnv){
       // hotOnly: true
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        title: 'htmlwebpackplugin',                                // 名称
-        chunks: ['index1'],                                        // 对应entry里面的key
-        template: path.resolve(__dirname, './public/index.html'),  // 待注入的 html模板文件
-        filename: 'index.html',                                    // 输出注入后的的 html文件名
-        inject: 'body'
-      }),                                                         // 需要在hot fix热替换模块之前
-  
-      new HtmlWebpackPlugin({
-        title: 'htmlwebpackplugin2',                                // 名称
-        chunks: ['index2'],                                        // 对应entry里面的key
-        template: path.resolve(__dirname, './public/index.html'),  // 待注入的 html模板文件
-        filename: 'index2.html',                                    // 输出注入后的的 html文件名
-        inject: 'body'
-      }),                                                         // 需要在hot fix热替换模块之前
-      // new webpack.HotModuleReplacementPlugin()
+      ...setHtmlWebpackPlugin(),                                    // 编译时自动根据HTML模板 注入编译的JS bundle
+      ...getProdPlugins(),                                          //  生成生产环境需要的 plugins
       new CleanWebpackPlugin(),                                    // 每次编译时清除 dist
-      // new CompressionPlugin()                                     //webpack 代码压缩
-      new UglifyJsPlugin({
-        sourceMap: true,
-      }),
-      new webpack.DefinePlugin({                                    //指定生产环境 可以降低构建量
-        'process.env.NODE_ENV': JSON.stringify('production')
-      }),
-  
     ],
-    devtool: 'source-map',
+    devtool: setSourceMap,
     optimization: {
       splitChunks: {
         chunks: 'all'

@@ -9,8 +9,7 @@ class Home extends Component{
   componentDidMount(){
     // const a=['1'];
     // console.error(a.name);
-    ajax()
-    console.log('Home： Home已加载')
+    console.log('Home：Home已加载')
   }
   render(){
 

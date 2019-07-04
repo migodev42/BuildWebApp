@@ -7,13 +7,14 @@
 - [x] resolve.alias 项目路径定制(`Modeul resolution`)
 - [x] `Less loader` 
 - [x] `code split` 代码切分
-- [x] `HtmlWebpackPlugin`  定制动态生成Html文件  `HtmlWebpackPlugin`为4.0.0-beta.5版本，稳定版还不支持多入口的Html注入
+- [x] `HtmlWebpackPlugin`  定制动态生成Html文件  `HtmlWebpackPlugin`为4.0.0-beta.5版本，3.2稳定版还不支持多入口的Html注入
 - [X] `Muitiple Entry` 多入口
 - [x] `antd` 支持
 - [x] 编译前clean `dist`目录(可选)
+- [x] `compress`代码编译压缩
 - [x] `sourceMap` 代码映射
+- [ ] `bundle` 构成分析
 - [ ] `css`分离
-- [ ] `compress`代码编译压缩
 - [ ] `output` 输出定制 (文件名/引入依赖自动注入)
 - [ ] `import()` 按需加载
 - [ ] `mode` 编译模式配置 ( `development/production` ) 不同开发环境的编译配置
