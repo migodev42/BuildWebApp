@@ -12,9 +12,9 @@ class Home extends Component{
     console.log('Home：Home已加载')
   }
   render(){
-
+    const {className} = this.props
     return (
-      <div className="Home">this is home222
+      <div className={"Home "+className}>this is home222
         <Button type="primary">Click3</Button>
       </div>
     )

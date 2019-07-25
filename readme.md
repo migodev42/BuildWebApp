@@ -13,6 +13,8 @@
 - [x] 编译前clean `dist`目录(可选)
 - [x] `compress`代码编译压缩
 - [x] `sourceMap` 代码映射
+- [ ] 前端路由配置
+- [ ] `@babel/plugin-proposal-class-properties` 增加对class 写内部箭头函数支持
 - [ ] 静态文件`loader` (图片O 音频X 视频X)
 - [ ] `bundle` 构成分析
 - [ ] `css`分离

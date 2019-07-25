@@ -46,7 +46,7 @@ module.exports = function (webpackEnv) {
 
   const entry={
     index: "./src/index.js",                            // 每个entry中包含 @babel/poolyfill 以支持ES最新语法
-    index2: "./src/index2.js",
+    index2: "./src/indexTestMultyEntry.js",
   }
 
   /* 多 entry  polyfill */
@@ -68,7 +68,7 @@ module.exports = function (webpackEnv) {
         title: 'HtmlWebpackPlugin'+key,                              // 名称
         chunks: [key],                                              // 对应entry里面的key
         template: path.resolve(__dirname, './public/index.html'),   // 待注入的 html模板文件
-        filename: `${key}.html`,                                    // 输出注入后的的 html文件名
+        filename: `${key}.html`,                                    // 输出注入后的的 html文件名, key对应 entry中设置的key
         inject: 'body'
       }))
     })    
@@ -115,7 +115,8 @@ module.exports = function (webpackEnv) {
       alias: {
         "@src": path.resolve(__dirname, './src'),
         "@pages": path.resolve(__dirname, './src/pages'),
-        "@assets": path.resolve(__dirname, './src/assets')
+        "@assets": path.resolve(__dirname, './src/assets'),
+        "@components": path.resolve(__dirname, './src/components')
       }
     },
     output: {
