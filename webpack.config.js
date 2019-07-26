@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 /* css分离 */
 // 创建多个实例
@@ -46,7 +48,7 @@ module.exports = function (webpackEnv) {
 
   const entry={
     index: "./src/index.js",                            // 每个entry中包含 @babel/poolyfill 以支持ES最新语法
-    index2: "./src/indexTestMultyEntry.js",
+    // index2: "./src/indexTestMultyEntry.js",
   }
 
   /* 多 entry  polyfill */
@@ -116,13 +118,15 @@ module.exports = function (webpackEnv) {
         "@src": path.resolve(__dirname, './src'),
         "@pages": path.resolve(__dirname, './src/pages'),
         "@assets": path.resolve(__dirname, './src/assets'),
-        "@components": path.resolve(__dirname, './src/components')
+        "@components": path.resolve(__dirname, './src/components'),
+        "@routers": path.resolve(__dirname, './src/routers')
       }
     },
     output: {
       path: path.resolve(__dirname, "dist/"),
       // publicPath: "/dist/",                                      // 服务器 serve bundle路径 The bundled files will be available in the browser under this path.
-      filename: "[name].[hash:8].js",
+      filename: "[name].bundle.[hash:4].js",
+      chunkFilename: '[name].bundle.js',
     },
     devServer: {
       // lazy: true,                                                 // 加载某个页面 才进行编译
@@ -138,6 +142,7 @@ module.exports = function (webpackEnv) {
       ...setHtmlWebpackPlugin(),                                    // 编译时自动根据HTML模板 注入编译的JS bundle
       ...getProdPlugins(),                                          //  生成生产环境需要的 plugins
       new CleanWebpackPlugin(),                                    // 每次编译时清除 dist
+      new BundleAnalyzerPlugin()
     ],
     devtool: setSourceMap,
     optimization: {

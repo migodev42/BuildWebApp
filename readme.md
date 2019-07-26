@@ -2,6 +2,8 @@
 
 - [x] `react`
 - [x] `babel` 编译loader ( `jsx`、`ES6/7/8`兼容 )
+  - - [x] `@babel/plugin-proposal-class-properties`  class 实验特性支持
+  - - [x] `@babel/plugin-syntax-dynamic-import` 动态导入支持
 - [x] devServer 开发服务器 
 - [x] HotReplace 热替换
 - [x] resolve.alias 项目路径定制(`Modeul resolution`)
@@ -13,10 +15,15 @@
 - [x] 编译前clean `dist`目录(可选)
 - [x] `compress`代码编译压缩
 - [x] `sourceMap` 代码映射
+- [x] `bundle` 构成分析 `webpack-bundle-analyzer`
+
 - [ ] 前端路由配置
-- [ ] `@babel/plugin-proposal-class-properties` 增加对class 写内部箭头函数支持
+  - - [x] 路由基本切换 
+  - 路由切换动画  todo
+  - 重置页面滚动 `scrollTop`
+  - - [x] 代码分割、组件按需加载 `loadable(()=>import())` 
+
 - [ ] 静态文件`loader` (图片O 音频X 视频X)
-- [ ] `bundle` 构成分析
 - [ ] `css`分离
 - [ ] `output` 输出定制 (文件名/引入依赖自动注入)
 - [ ] `import()` 按需加载

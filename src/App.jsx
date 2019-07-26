@@ -1,21 +1,26 @@
-import React,{Component} from 'react';
-import Home from '@pages/home/Home.jsx';
+import React, { Component } from 'react';
 import Header from '@components/header/Header';
+import AppRouter from '@routers/router';
 
 import './App.less';
 
-class App extends Component{
-  componentDidMount(){
-    console.log("App: app已启动");
+class App extends Component {
+  componentDidMount() {
+    console.log("App: app已加载");
   }
-  render(){
-    
+  render() {
+
 
 
     return (
-      <div className="App">        
-        <Header className="App-Header"></Header>
-        <Home className="App-Home"></Home>
+      <div className="App">
+       
+        {/* <Home className="App-Home"></Home> */}
+        {/* <WebGL></WebGL> */}
+             
+        <AppRouter className="App-Router">                
+          <Header className="App-Header"></Header>
+        </AppRouter>
       </div>
     )
   }

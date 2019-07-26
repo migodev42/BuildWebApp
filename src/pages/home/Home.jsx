@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {Button} from 'antd';
+import './Home.less';
 
 class Home extends Component{
   constructor(props){
@@ -14,8 +15,8 @@ class Home extends Component{
   render(){
     const {className} = this.props
     return (
-      <div className={"Home "+className}>this is home222
-        <Button type="primary">Click3</Button>
+      <div className={"Home "+className}>home
+        {/* <Button type="primary">Click</Button> */}
       </div>
     )
   }

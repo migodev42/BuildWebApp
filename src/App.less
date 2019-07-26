@@ -1,13 +1,21 @@
+@HeaderHeight:50px;
+@AppMarginTop: 55px;
+
+body{
+    height: unset;
+}
+
 .App{
-  background: antiquewhite
+  background: #f0f0f0;
+  height:calc(100vh - @AppMarginTop );
 }
 
 .App-Header{
     position: absolute;
     top:0;
-    height: 50px;
+    height: @HeaderHeight;
 }
 
-.App-Home{
-    margin-top:55px;
+.App-Router{
+    margin-top:@AppMarginTop;
 }
