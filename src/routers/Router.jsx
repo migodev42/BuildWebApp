@@ -22,7 +22,7 @@ class AppRouter extends Component {
         <Router>
 
           {children}
-   
+          {/* <div className="testLess">测试样式是否生效</div> */}
           <TransitionGroup>
             <CSSTransition
               key={location.key}

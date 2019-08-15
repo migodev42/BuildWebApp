@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Button} from 'antd';
 import './Home.less';
+import TryHook from '@components/tryHook/TryHook';
 
 class Home extends Component{
   constructor(props){
@@ -17,6 +18,7 @@ class Home extends Component{
     return (
       <div className={"Home "+className}>home
         {/* <Button type="primary">Click</Button> */}
+        <TryHook></TryHook>
       </div>
     )
   }

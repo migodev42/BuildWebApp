@@ -46,7 +46,7 @@ class Header extends Component {
           </span>
 
           <Menu onClick={this.handleClick} className="Header-Menu" selectedKeys={[this.state.current]} mode="horizontal">
-            <Menu.Item key="mail">
+            <Menu.Item key="mail" disabled>
               <Icon type="read" />
               读书笔记
             </Menu.Item>
@@ -66,7 +66,7 @@ class Header extends Component {
                   <Icon type="down" />
                 </span>
               }
-            >
+            disabled>
               <Menu.ItemGroup title="Item 1">
                 <Menu.Item key="setting:1">
                   <Link to={RouterConf['webGL'].url}>
