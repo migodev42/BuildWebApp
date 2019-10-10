@@ -92,7 +92,11 @@ class Header extends Component {
                   <Link to={RouterConf['mindmap'].url}>
                     {RouterConf['mindmap'].title}
                   </Link>
-                mindmap
+              </Menu.Item>
+              <Menu.Item key="project-blog" >
+                  <Link to={RouterConf['blog'].url}>
+                    {RouterConf['blog'].title}
+                  </Link>
               </Menu.Item>
               {
                 /**

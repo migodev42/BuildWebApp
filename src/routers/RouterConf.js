@@ -4,6 +4,7 @@ import loadable from '@loadable/component'
 const home=loadable(()=>import('@pages/home/index'));
 const webgl=loadable(()=>import('@pages/webgl/index'));
 const mindmap=loadable(()=>import('@pages/mindmap/index'));
+const blog=loadable(()=>import('@pages/blog/index'));
 
 const RouterConf = {  
   'home':
@@ -32,6 +33,13 @@ const RouterConf = {
     url: '/mindmap',
     title: 'mindmap',
     page: mindmap
+  },
+
+  'blog':
+  {
+    url: '/blog',
+    title: 'blog',
+    page: blog
   }
 
 

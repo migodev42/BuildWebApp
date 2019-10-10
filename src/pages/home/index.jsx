@@ -18,7 +18,7 @@ class Home extends Component{
     return (
       <div className={"Home "+className}>home
         {/* <Button type="primary">Click</Button> */}
-        <TryHook></TryHook>
+        {/** <TryHook></TryHook>*/}
         
       </div>
     )
