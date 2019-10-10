@@ -36,3 +36,14 @@
 
 ### React目标
 - [ ] 尝试使用 Hook
+- [ ] 尝试使用 redux
+- [ ] 尝试使用 mobx
+- [ ] 比较 mobx、redux、react context
+
+```
+npm install --save redux
+
+
+npm install --save react-redux
+npm install --save-dev redux-devtools
+```
