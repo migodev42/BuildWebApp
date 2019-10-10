@@ -56,6 +56,7 @@ class Header extends Component {
                     {/* {RouterConf['webGL'].title} */}
                     <Icon type="project" />
                     项目
+                    <Icon type="down" />
               </Link>
             </Menu.Item>
             <SubMenu
@@ -63,7 +64,7 @@ class Header extends Component {
                 <span className="submenu-title-wrapper">
                   <Icon type="area-chart" />
                   可视化 {"  "}
-                  <Icon type="down" />
+                  
                 </span>
               }
             disabled>

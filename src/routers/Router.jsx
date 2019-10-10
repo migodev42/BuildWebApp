@@ -6,7 +6,6 @@ import './RouterAnimate.less';
 import RouterConf from './RouterConf.js';
 
 
-
 class AppRouter extends Component {
   constructor(props) {
     super(props);
@@ -25,18 +24,17 @@ class AppRouter extends Component {
           {/* <div className="testLess">测试样式是否生效</div> */}
           <TransitionGroup>
             <CSSTransition
-              key={location.key}
               classNames="fade"
               timeout={800}
             >
               
-              <Switch location={location}>
+              <Switch>
                 {
                   Object.keys(RouterConf).map((key, idx) => {
                     const el = RouterConf[key];
                     return (
 
-                      <Route path={el.url} exact component={el.page} key={idx}></Route>
+                      <Route path={el.url} component={el.page} key={idx}></Route>
                     )
                   })
                 }

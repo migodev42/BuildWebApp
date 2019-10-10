@@ -129,9 +129,10 @@ module.exports = function (webpackEnv) {
       chunkFilename: '[name].bundle.js',
     },
     devServer: {
-      // lazy: true,                                                 // 加载某个页面 才进行编译
+      // lazy: true,              
+      historyApiFallback: true,                                   // 加载某个页面 才进行编译
       compress: useCompress,                                              // 代码压缩
-      open: true,                                                  // 自动打开浏览器
+      open: false,                                                  // 自动打开浏览器
       hot: true,
       contentBase: path.resolve(__dirname, "public/"),            // 配置请求路径 此时访问 http://localhost:3000/ 实际为 http://localhost:3000/dist，默认为项目根目录
       port: 3000,
