@@ -1,30 +1,40 @@
 // import { Suspense, lazy } from 'react';
 
 import loadable from '@loadable/component'
-const Home=loadable(()=>import('@pages/home/Home'));
-const WebGL=loadable(()=>import('@pages/webgl/WebGL'));
+const home=loadable(()=>import('@pages/home/index'));
+const webgl=loadable(()=>import('@pages/webgl/index'));
+const mindmap=loadable(()=>import('@pages/mindmap/index'));
 
-const RouterConf = {
-  'default':
-  {
-    url: '*',
-    title: 'Home',
-    page: Home
-  },
-  
+const RouterConf = {  
   'home':
   {
     url: '/',
-    title: 'Home',
-    page: Home
+    title: 'home',
+    page: home
   },
   
-  'webGL':
+  'webgl':
   {
-    url: '/webGL',
-    title: 'webGL',
-    page: WebGL
+    url: '/webgl',
+    title: 'webgl',
+    page: webgl
+  },
+  
+  'projects':
+  {
+    url: '/projects',
+    title: 'projects',
+    page: webgl
+  },
+
+  'mindmap':
+  {
+    url: '/mindmap',
+    title: 'mindmap',
+    page: mindmap
   }
+
+
 }
 
 export default RouterConf;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Icon, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 import RouterConf from '@routers/RouterConf';
-import './Header.less';
+import './index.less';
 
 const { SubMenu } = Menu;
 
@@ -46,29 +46,39 @@ class Header extends Component {
           </span>
 
           <Menu onClick={this.handleClick} className="Header-Menu" selectedKeys={[this.state.current]} mode="horizontal">
-            <Menu.Item key="mail" disabled>
+            {
+              /**
+               * <Menu.Item key="mail" disabled>
               <Icon type="read" />
               读书笔记
             </Menu.Item>
-            <Menu.Item key="app" >
+               * 
+               */
+            }
+
+            { /* <Menu.Item key="app" >
               
               <Link to={RouterConf['webGL'].url}>
-                    {/* {RouterConf['webGL'].title} */}
+                    {/* {RouterConf['webGL'].title} 
                     <Icon type="project" />
                     项目
                     <Icon type="down" />
               </Link>
-            </Menu.Item>
+            </Menu.Item> 
+              */
+            }
             <SubMenu
               title={
-                <span className="submenu-title-wrapper">
+                <Link tp={RouterConf['projects'].url} className="submenu-title-wrapper">
                   <Icon type="area-chart" />
-                  可视化 {"  "}
-                  
-                </span>
+                  项目
+                  <Icon type="down" />
+                </Link>
               }
-            disabled>
-              <Menu.ItemGroup title="Item 1">
+            >
+              {
+                /**
+                 * <Menu.ItemGroup title="Item 1">
                 <Menu.Item key="setting:1">
                   <Link to={RouterConf['webGL'].url}>
                     {RouterConf['webGL'].title}
@@ -76,10 +86,20 @@ class Header extends Component {
                 </Menu.Item>
                 <Menu.Item key="setting:2">Option 2</Menu.Item>
               </Menu.ItemGroup>
-              <Menu.ItemGroup title="Item 2">
-                <Menu.Item key="setting:3">Option 3</Menu.Item>
-                <Menu.Item key="setting:4">Option 4</Menu.Item>
-              </Menu.ItemGroup>
+                 */
+              }
+              <Menu.Item key="project-mindmap" >
+                  <Link to={RouterConf['mindmap'].url}>
+                    {RouterConf['mindmap'].title}
+                  </Link>
+                mindmap
+              </Menu.Item>
+              {
+                /**
+                 * 
+                 * <Menu.Item key="setting:4"></Menu.Item>
+                 */
+              }
             </SubMenu>
           </Menu>
         </div>

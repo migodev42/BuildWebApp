@@ -34,7 +34,7 @@ class AppRouter extends Component {
                     const el = RouterConf[key];
                     return (
 
-                      <Route path={el.url} component={el.page} key={idx}></Route>
+                      <Route exact path={el.url} component={el.page} key={idx}></Route>
                     )
                   })
                 }

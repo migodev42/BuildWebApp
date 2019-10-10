@@ -1,4 +1,4 @@
-import './WebGL.less';
+import './index.less';
 import React, { Component } from 'react';
 
 class WebGL extends Component {

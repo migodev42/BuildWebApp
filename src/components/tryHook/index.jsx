@@ -1,17 +1,17 @@
 import React from 'react';
 import { useState, useEffect } from 'react'
-import './tryHook.less';
+import './index.less';
 import { Button, Input, Modal } from 'antd';
 
 function TryHook(props) {
   const { data } = props;
 
-  const [inputValue, setInputValue] = useState('initialValue');
+  const [inputValue, setInputValue] = useState('Leo');
   const [isModalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     // 使用浏览器的 API 更新页面标题
-    document.title = `这是你输入的 ${inputValue}`;
+    document.title = `welcome, ${inputValue}`;
   });
 
   const handleInputChange = (e) => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '@components/header/Header';
+import Header from '@components/header/index';
 import AppRouter from '@routers/router';
 
 import './App.less';
