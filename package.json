@@ -46,6 +46,7 @@
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.4",
+    "remarkable": "^2.0.0",
     "uglifyjs-webpack-plugin": "^2.1.3"
   }
 }
