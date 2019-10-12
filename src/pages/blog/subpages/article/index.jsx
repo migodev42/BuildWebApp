@@ -1,19 +1,18 @@
 import './index.less'
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import hljs from 'highlight.js'
 import 'highlight.js/styles/dracula.css';
-import { Remarkable } from 'remarkable';
-// Create reference instance
 import marked from 'marked';
-
-// Set options
-// `highlight` example uses `highlight.js`
 marked.setOptions({
-  renderer: new marked.Renderer(),  
+  renderer: new marked.Renderer(),
+  highlight: function(code) {
+    return hljs.highlightAuto(code).value;
+  },
   pedantic: false,
   gfm: false,
   breaks: false,
@@ -23,66 +22,57 @@ marked.setOptions({
   xhtml: false
 });
 
-/* const md = new Remarkable({
-  html: false, // Enable HTML tags in source
-  xhtmlOut: false,        // Use '/' to close single tags (<br />)
-  breaks: false,        // Convert '\n' in paragraphs into <br>
-  langPrefix: 'language-',  // CSS language prefix for fenced blocks
-  linkify: true,         // autoconvert URL-like texts to links
-  linkTarget: '',           // set target to open link in
 
-  // Enable some language-neutral replacements + quotes beautification
-  typographer: false,
+const ArticlePage = ({ match }) => {
+  return (
+    <Switch>
+      <Route path={match.path} exact render={() => (
+        <div className="Article-Not-Find">Sorry 文章不见了...</div>
+      )}></Route>
+      <Route path={match.path + '/:dir'} component={Article}></Route>
+    </Switch>
+  )
 
-  // Double + single quotes replacement pairs, when typographer enabled,
-  // and smartquotes on. Set doubles to '«»' for Russian, '„“' for German.
-  quotes: '“”‘’',
-
-  // Highlighter function. Should return escaped HTML,
-  // or '' if input not changed
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(lang, str).value;
-      } catch (err) { }
-    }
-
-    try {
-      return hljs.highlightAuto(str).value;
-    } catch (err) { }
-
-    return ''; // use external default escaping
-  }
-}); */
-
+}
 
 function Article(props) {
-  let { markdown } = props;
-  const { dir='' }=useParams();
+  
+  const { dir = '' } = useParams();
+  const location = useLocation();
+  const { search = '', state, ...res } = location
+  
+  const [markdown, setMarkdown] = useState(props.markdown || '');
+  
+  console.log('article传参', dir, location)
 
-  const [example, setExample] = useState('initialValue');
-  useEffect(() => {    
-    
-    hljs.initHighlighting()        
-
+  useEffect(() => {        
+    // hljs.initHighlighting()
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+    // console.log('解析的md',markdown)      
   },[markdown]);
 
-  useEffect(()=>{
-    if(dir){
-      import(dir).then(m=>markdown=m);
+  
+  
+  useEffect(()=>{    
+    if(dir){      
+      import(`@assets/articles/${dir}.md`).then(m=>{        
+        setMarkdown(marked(m.default))
+
+    });
     }
   },[dir])
-
-
+  
+  
   return (
     <div className="Article">
-      Article
-      <div dangerouslySetInnerHTML={{ __html: marked(markdown) }} />
+      <div dangerouslySetInnerHTML={{ __html: markdown }} />
     </div>
   )
 }
 
 Article.propTypes = {
-  markdown: PropTypes.string  
+  markdown: PropTypes.string
 }
-export default Article;
+export default ArticlePage;

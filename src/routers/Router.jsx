@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link ,Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { Suspense, lazy } from 'react';
 import './RouterAnimate.less';
-import RouterConf from './RouterConf.js';
+
+import loadable from '@loadable/component'
+const home = loadable(() => import('@pages/home/index'));
+const webgl = loadable(() => import('@pages/webgl/index'));
+const mindmap = loadable(() => import('@pages/mindmap/index'));
+const blogpage = loadable(() => import('@pages/blog/index'));
+const article = loadable(() => import('@pages/blog/subpages/article/index'));
+import Article from '@pages/blog/subpages/article/index'
 
 
 class AppRouter extends Component {
@@ -22,26 +29,23 @@ class AppRouter extends Component {
 
           {children}
           {/* <div className="testLess">测试样式是否生效</div> */}
-          <TransitionGroup>
-            <CSSTransition
-              classNames="fade"
-              timeout={800}
-            >
-              
-              <Switch>
-                {
-                  Object.keys(RouterConf).map((key, idx) => {
-                    const el = RouterConf[key];
-                    return (
 
-                      <Route exact path={el.url} component={el.page} key={idx}></Route>
-                    )
-                  })
-                }
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
+          <main>
+            <TransitionGroup>
+              <CSSTransition
+                classNames="fade"
+                timeout={800}
+              >
 
+                <Switch>
+                  <Route exact path='/' component={home}></Route>
+                  <Route path='/blog' component={blogpage}></Route>
+                  <Route path='/mindmap' component={mindmap}></Route>                  
+                  <Redirect to="/" />
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
+          </main>
         </Router>
       </div>
     )

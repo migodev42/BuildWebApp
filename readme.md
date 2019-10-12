@@ -16,20 +16,23 @@
 - [x] `compress`代码编译压缩
 - [x] `sourceMap` 代码映射
 - [x] `bundle` 构成分析 `webpack-bundle-analyzer`
-- [x] `markdown-loader` webpack打包`markdown`文件
-- [x] `highlighjs`  
+- [x] `raw-file loader` webpack导入`markdown`文件
+- [x] `marked` & `highlighjs` 解析`markdown`文件,高亮代码
 ```
 row file loader + marked/remarkable + hightlight 
 将.md文件导入为字符串再做解析、处理
 ```
+- [x] `devtoolModuleFilenameTemplate` Point sourcemap entries to original disk location (format as URL on Windows)
 
-- [ ] 前端路由配置
+- [ ] 前端路由配置 (配合devServer: v 配合nodeJs: todo)
   - - [x] 路由基本切换 
   - 路由切换动画  todo
   - 重置页面滚动 `scrollTop`
   - - [x] 代码分割、组件按需加载 `loadable(()=>import())` 
 
 - [ ] 静态文件`loader` (图片O 音频X 视频X)
+
+
 - [ ] `css`分离
 - [ ] `output` 输出定制 (文件名/引入依赖自动注入)
 - [ ] `import()` 按需加载

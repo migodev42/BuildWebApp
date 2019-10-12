@@ -24,9 +24,12 @@ module.exports = function (webpackEnv) {
   console.log('webpack mode:', process.env.NODE_ENV);
   // const NODE_ENV = process.env.NODE_ENV;
   const isProduction = (process.env.NODE_ENV === 'production') ? true : false;
-
-  const setSourceMap = isProduction ? 'cheap-source-map' : '';
+  const setSourceMap = isProduction ? 'cheap-source-map' : 'cheap-module-eval-source-map';
   const useCompress = isProduction ? true : false;
+  const entry = {
+    index: path.resolve(__dirname,"./src/index.js"),                            // 每个entry中包含 @babel/poolyfill 以支持ES最新语法
+    // index2: "./src/indexTestMultyEntry.js",
+  }
 
 
   console.log('webpack : sourceMap配置', setSourceMap);
@@ -49,13 +52,10 @@ module.exports = function (webpackEnv) {
     return plugins
   }
 
-  const entry = {
-    index: "./src/index.js",                            // 每个entry中包含 @babel/poolyfill 以支持ES最新语法
-    // index2: "./src/indexTestMultyEntry.js",
-  }
+  
 
   /* 多 entry  polyfill */
-  function setMuityEntries() {
+  function polyFillEntries() {
     console.log('webpack : 开始生成entry');
     const polyFilledEntry = {};
     Object.keys(entry).forEach(key => {
@@ -81,7 +81,7 @@ module.exports = function (webpackEnv) {
   }
 
   return {
-    entry: setMuityEntries(),
+    entry: polyFillEntries(),
     mode: isProduction ? "production" : "development",
     module: {
       rules: [
@@ -136,18 +136,27 @@ module.exports = function (webpackEnv) {
       }
     },
     output: {
-      path: path.resolve(__dirname, "dist/"),
-      // publicPath: "/dist/",                                      // 服务器 serve bundle路径 The bundled files will be available in the browser under this path.
+      path: path.resolve(__dirname, "./dist"),
+      // publicPath: "/dist/",                 
+      publicPath:'/',                     // 服务器 serve bundle路径 The bundled files will be available in the browser under this path.
       filename: "[name].bundle.[hash:4].js",
       chunkFilename: '[name].bundle.js',
+
+      // Point sourcemap entries to original disk location (format as URL on Windows)
+      // devtoolModuleFilenameTemplate: info =>
+      // path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
     },
     devServer: {
       // lazy: true,              
-      historyApiFallback: true,                                   // 加载某个页面 才进行编译
+      historyApiFallback: true, 
+      // 加载某个页面 才进行编译
       compress: useCompress,                                              // 代码压缩
       open: false,                                                  // 自动打开浏览器
       hot: true,
-      contentBase: path.resolve(__dirname, "public/"),            // 配置请求路径 此时访问 http://localhost:3000/ 实际为 http://localhost:3000/dist，默认为项目根目录
+      contentBase: path.resolve(__dirname, "./public"),            // 配置请求路径 此时访问 http://localhost:3000/ 实际为 http://localhost:3000/dist，默认为项目根目录
+      staticOptions: {
+        redirect: true
+      },
       port: 3000,
       // publicPath: "http://localhost:3000/public",                        // 虚拟服务器 serve 路径
       // hotOnly: true
@@ -156,7 +165,8 @@ module.exports = function (webpackEnv) {
       ...setHtmlWebpackPlugin(),                                    // 编译时自动根据HTML模板 注入编译的JS bundle
       ...getProdPlugins(),                                          //  生成生产环境需要的 plugins
       new CleanWebpackPlugin(),                                    // 每次编译时清除 dist
-      new BundleAnalyzerPlugin()
+      // new BundleAnalyzerPlugin()
+   
     ],
     devtool: setSourceMap,
     optimization: {
