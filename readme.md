@@ -16,6 +16,12 @@
 - [x] `compress`代码编译压缩
 - [x] `sourceMap` 代码映射
 - [x] `bundle` 构成分析 `webpack-bundle-analyzer`
+- [x] `markdown-loader` webpack打包`markdown`文件
+- [x] `highlighjs`  
+```
+row file loader + marked/remarkable + hightlight 
+将.md文件导入为字符串再做解析、处理
+```
 
 - [ ] 前端路由配置
   - - [x] 路由基本切换 

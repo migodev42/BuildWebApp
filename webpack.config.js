@@ -5,6 +5,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const marked = require('marked')
+const mRender = new marked.Renderer()
+
 
 
 /* css分离 */
@@ -26,7 +29,7 @@ module.exports = function (webpackEnv) {
   const useCompress = isProduction ? true : false;
 
 
-  console.log('webpack : sourceMap配置',setSourceMap);
+  console.log('webpack : sourceMap配置', setSourceMap);
   function getProdPlugins() {
     const plugins = [];
 
@@ -46,34 +49,34 @@ module.exports = function (webpackEnv) {
     return plugins
   }
 
-  const entry={
+  const entry = {
     index: "./src/index.js",                            // 每个entry中包含 @babel/poolyfill 以支持ES最新语法
     // index2: "./src/indexTestMultyEntry.js",
   }
 
   /* 多 entry  polyfill */
-  function setMuityEntries(){
+  function setMuityEntries() {
     console.log('webpack : 开始生成entry');
-    const polyFilledEntry={};
-    Object.keys(entry).forEach(key=>{
-      polyFilledEntry[key]=["@babel/polyfill",entry[key]]
+    const polyFilledEntry = {};
+    Object.keys(entry).forEach(key => {
+      polyFilledEntry[key] = ["@babel/polyfill", entry[key]]
     })
     return polyFilledEntry
   }
 
   /* html 自动注入 bundle */
-  function setHtmlWebpackPlugin(){
-    console.log('webpack : 开始注入html',entry);
-    const htmlWebpackPlugins=[];
-    Object.keys(entry).forEach(key=>{
+  function setHtmlWebpackPlugin() {
+    console.log('webpack : 开始注入html', entry);
+    const htmlWebpackPlugins = [];
+    Object.keys(entry).forEach(key => {
       htmlWebpackPlugins.push(new HtmlWebpackPlugin({
-        title: 'HtmlWebpackPlugin'+key,                              // 名称
+        title: 'HtmlWebpackPlugin' + key,                              // 名称
         chunks: [key],                                              // 对应entry里面的key
         template: path.resolve(__dirname, './public/index.html'),   // 待注入的 html模板文件
         filename: `${key}.html`,                                    // 输出注入后的的 html文件名, key对应 entry中设置的key
         inject: 'body'
       }))
-    })    
+    })
     return htmlWebpackPlugins;
   }
 
@@ -89,12 +92,12 @@ module.exports = function (webpackEnv) {
           loader: "babel-loader",
           options: { presets: ["@babel/env"] }
         },
-        
+
         {
           test: /\.css$/,
           use: ["style-loader", "css-loader"]
-          
-        }, 
+
+        },
 
         // Less 解析
         {
@@ -109,7 +112,17 @@ module.exports = function (webpackEnv) {
           use: [
             'file-loader'
           ]
+        },
+
+        {
+          test: /\.md$/,
+          use: [
+            {
+              loader: 'raw-loader'
+            },
+          ]
         }
+
       ]
     },
     resolve: {

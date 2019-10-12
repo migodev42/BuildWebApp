@@ -69,11 +69,14 @@ class Header extends Component {
             }
             <SubMenu
               title={
-                <Link tp={RouterConf['projects'].url} className="submenu-title-wrapper">
-                  <Icon type="area-chart" />
-                  项目
+                (
+                  <span>
+                    <Icon type="area-chart" />
+                    项目
                   <Icon type="down" />
-                </Link>
+                  </span>
+                )
+
               }
             >
               {
@@ -89,14 +92,14 @@ class Header extends Component {
                  */
               }
               <Menu.Item key="project-mindmap" >
-                  <Link to={RouterConf['mindmap'].url}>
-                    {RouterConf['mindmap'].title}
-                  </Link>
+                <Link to={RouterConf['mindmap'].url}>
+                  {RouterConf['mindmap'].title}
+                </Link>
               </Menu.Item>
               <Menu.Item key="project-blog" >
-                  <Link to={RouterConf['blog'].url}>
-                    {RouterConf['blog'].title}
-                  </Link>
+                <Link to={RouterConf['blog'].url}>
+                  {RouterConf['blog'].title}
+                </Link>
               </Menu.Item>
               {
                 /**
