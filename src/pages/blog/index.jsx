@@ -1,7 +1,7 @@
 import './index.less'
 import React, { useState, useEffect } from 'react';
 import PreviewArticles from './subComponents/previewArticles/index'
-import Article from './subComponents/article/index'
+import Article from './subpages/article/index'
 import a from '@assets/articles/Vscodenodets.md'
 
 
@@ -19,7 +19,6 @@ function Blog(props) {
     <div className="Blog">
       <div className="Blog-Welcome">WelCome</div>
       <div className="Blog-Content">
-        博客内容
         <PreviewArticles/>
         <Article markdown={a}/>                
       </div>

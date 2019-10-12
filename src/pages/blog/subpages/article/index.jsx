@@ -1,12 +1,29 @@
 import './index.less'
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import {useParams} from 'react-router-dom';
+
 
 import hljs from 'highlight.js'
-import 'highlight.js/styles/a11y-dark.css';
+import 'highlight.js/styles/dracula.css';
 import { Remarkable } from 'remarkable';
+// Create reference instance
+import marked from 'marked';
 
-const md = new Remarkable({
+// Set options
+// `highlight` example uses `highlight.js`
+marked.setOptions({
+  renderer: new marked.Renderer(),  
+  pedantic: false,
+  gfm: false,
+  breaks: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false
+});
+
+/* const md = new Remarkable({
   html: false, // Enable HTML tags in source
   xhtmlOut: false,        // Use '/' to close single tags (<br />)
   breaks: false,        // Convert '\n' in paragraphs into <br>
@@ -36,37 +53,36 @@ const md = new Remarkable({
 
     return ''; // use external default escaping
   }
-});
+}); */
+
 
 function Article(props) {
-  const { markdown } = props;
+  let { markdown } = props;
+  const { dir='' }=useParams();
 
   const [example, setExample] = useState('initialValue');
-  useEffect(() => {
-    // 使用浏览器的 API 更新页面标题
-    // document.title = `You clicked count times`;
+  useEffect(() => {    
     
-    console.log('markdown', markdown)
+    hljs.initHighlighting()        
 
-    hljs.configure({
-      useBR:false,
-      languages:['javascript']
-    })
-    document.querySelectorAll('code').forEach((block) => {
-      console.log('hljs', block)
-      hljs.highlightBlock(block);
-    });
-    
-  });
+  },[markdown]);
+
+  useEffect(()=>{
+    if(dir){
+      import(dir).then(m=>markdown=m);
+    }
+  },[dir])
+
+
   return (
     <div className="Article">
       Article
-      <div dangerouslySetInnerHTML={{ __html: md.render(markdown) }} />
+      <div dangerouslySetInnerHTML={{ __html: marked(markdown) }} />
     </div>
   )
 }
 
 Article.propTypes = {
-  markdown: PropTypes.string.isRequired
+  markdown: PropTypes.string  
 }
 export default Article;

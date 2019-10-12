@@ -40,6 +40,13 @@ const RouterConf = {
     url: '/blog',
     title: 'blog',
     page: blog
+  },
+
+  'article':
+  {    
+    url: '/article/:dir',
+    title: 'article',
+    page: blog
   }
 
 

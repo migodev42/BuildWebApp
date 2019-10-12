@@ -10,8 +10,8 @@ function PreviewArticles(props) {
     // document.title = `You clicked count times`;
   });
   return (
-    <div>
-      预览文章
+    <div className="PreviewArticles">
+            
     </div>
   )
 }
