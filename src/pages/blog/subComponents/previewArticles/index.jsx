@@ -10,7 +10,7 @@ function PreviewArticles(props) {
     // document.title = `You clicked count times`;
   });
   return (
-    <div className="PreviewArticles">
+    <div className="PreviewArticles" {...props}>
             
     </div>
   )

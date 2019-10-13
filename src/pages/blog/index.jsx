@@ -28,9 +28,16 @@ function Blog(props) {
     <div className="Blog">
       <div className="Blog-Welcome">WelCome</div>
       <div className="Blog-Content">
-        <Button type="primary" onClick={() => history.push("/blog/article/Vscodenodets",)}>文章</Button>
-        <Button type="primary" onClick={() => history.push("/blog/article")}>文章页</Button>
-        <PreviewArticles />
+        {/* <Button type="primary" onClick={() => history.push("/blog/article/Vscodenodets",)}>文章</Button>
+        <Button type="primary" onClick={() => history.push("/blog/article")}>文章页</Button> */}
+
+        <div className="Blog-Preview">
+          {[1,2,3,4,5,6,7,8,9,10,11,12].map((el,idx)=>{
+            return <PreviewArticles key={el+idx} onClick={() => history.push("/blog/article/Vscodenodets",)}/>
+          })}
+          
+        </div>
+        
         {/* <Article markdown={a}/>                 */}
       </div>
     </div>
