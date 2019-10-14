@@ -1,6 +1,6 @@
 import './index.less'
 import React, { useState, useEffect } from 'react';
-
+import App from './subComponents/App';
 
 function Mindmap(props) {
   const { data } = props;
@@ -11,8 +11,9 @@ function Mindmap(props) {
     // document.title = `You clicked count times`;
   });
   return (
-    <div className="mindMap">
+    <div className="MindMap">
       mindmap
+      <App></App>
     </div>
   )
 }
