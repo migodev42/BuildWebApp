@@ -9,7 +9,7 @@ const App = () => {
     return (<div className="Mindmap-App">
     <Provider>
         <ThemeProvider>
-            <Nav />
+            {/* <Nav /> */}
             <Main />
         </ThemeProvider>
     </Provider>

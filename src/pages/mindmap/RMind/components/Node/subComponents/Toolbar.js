@@ -1,11 +1,16 @@
-import React from 'react';
+import React , {useContext} from 'react';
 import {css} from 'emotion';
 import useMindmap from '../../../customHooks/useMindmap';
+import useEditPanel from '../../../customHooks/useEditPanel';
 import {handlePropagation} from '../../../methods/assistFunctions';
 import ToolButton from '../../ToolButton';
+import {context} from '../../../context/';
 
 const Toolbar = ({layer, node, parent}) => {
     const mindmapHook = useMindmap();
+    const editPanelHook=useEditPanel();
+
+    const {mindmap: {dispatch: mDispatch, state: mState}} = useContext(context);
 
     const handleAddChild = () => {
         mindmapHook.addChild(node.id);
@@ -23,8 +28,10 @@ const Toolbar = ({layer, node, parent}) => {
         mindmapHook.editNode(node.id);
     };
 
-    const handleEditNodeInfo= ()=>{
-        mindmapHook.editNode(node.id);
+    const handleEditNodeInfo= () =>{        
+        mindmapHook.selectNode(node.id);
+        editPanelHook.toggelPanelShow(true);
+
     }
 
     const handleToggleChildren = () => {

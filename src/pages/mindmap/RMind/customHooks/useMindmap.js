@@ -29,8 +29,10 @@ const useMindmap = () => {
         editNode: node_id => {
             nDispatch(nodeStatusAction.setEdit(node_id));
         },
-        editNodeInfo:node_id=>{
-          console.log('编辑节点信息',node_id);
+        editNodeInfo:(node_id,info)=>{
+          mDispatch(mindmapAction.changeInfo(node_id, info));
+        //   nDispatch(nodeStatusAction.setSelect(node_id));
+          
         },
         changeText: (node_id, text) => {
             mDispatch(mindmapAction.changeText(node_id, text));

@@ -28,6 +28,7 @@ export const drawLineCanvas = (ctx, theme, mindmap, map) => {
     ctx.beginPath();
     ctx.lineWidth = '2';
     ctx.strokeStyle = theme.main;
+    // ctx.scale(2,2)
     drawLine(ctx, mindmap, map);
     ctx.stroke();
     ctx.closePath();

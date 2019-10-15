@@ -1,6 +1,6 @@
 import './index.less'
 import React, { useState, useEffect } from 'react';
-import App from './subComponents/App';
+import App from './RMind/App';
 
 function Mindmap(props) {
   const { data } = props;

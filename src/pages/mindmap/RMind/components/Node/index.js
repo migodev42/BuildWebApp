@@ -7,15 +7,16 @@ import * as refer from '../../statics/refer';
 import {handlePropagation} from '../../methods/assistFunctions';
 import Toolbar from './subComponents/Toolbar';
 import InputDiv from './subComponents/InputDiv';
+import '../../statics/zwicon.css';
 
 const Node = ({layer, node, parent, node_refs, on_left}) => {
     const self = useRef();
-    const {state: nodeStatus, dispatch: nDispatch} = useContext(context).nodeStatus;
+    const {nodeStatus:{state: nodeStatus, dispatch: nDispatch}, editPanel: {state:epState} } = useContext(context);
+
     const mindmapHook = useMindmap();
 
     const handleSelectNode = () => {
         mindmapHook.selectNode(node.id, true);
-        console.log('选中节点')
     };
 
     const handleEditNode = () => {
@@ -51,14 +52,13 @@ const Node = ({layer, node, parent, node_refs, on_left}) => {
         id={node.id}
         ref={self}
         onClick={handlePropagation}>
-        {nodeStatus.cur_edit === node.id &&
+        {nodeStatus.cur_edit === node.id && 
         <InputDiv node_id={node.id}>{node.text}</InputDiv>}
         <div className={drop_area} data-tag={refer.DROP_AREA} onClick={handleSelectNode} onDoubleClick={handleEditNode} />
-        <p>{node.text}</p>
-        <div>{node.more}</div>        
+        <p>{node.text} {node.info && <i className="zwicon-note" style={{fontSize:20}}></i>}</p>        
         {(layer > 0 && node.children.length > 0) &&
         <button className={cx(toggle_button, (on_left ? button_left : button_right))} onClick={handleToggleChildren}>{node.showChildren ? '-' : '+'}</button>}
-        {(nodeStatus.cur_select === node.id && nodeStatus.select_by_click) &&
+        {(nodeStatus.cur_select === node.id && nodeStatus.select_by_click) && !epState.isShow &&
         <Toolbar layer={layer} node={node} parent={parent} />}
     </div>);
 };
