@@ -16,7 +16,7 @@ export default Main;
 
 // CSS
 const wrapper = css`
-height: calc(80vh - 56px);
+height: calc(100vh - 56px);
 margin: 56px 0 0;
-overflow: auto;
+overflow: scroll;
 `;

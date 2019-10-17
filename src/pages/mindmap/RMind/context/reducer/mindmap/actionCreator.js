@@ -68,8 +68,6 @@ export const changeInfo = (node_id, info) => ({
     }
 });
 
-
-
 export const deleteNode = (node_id, parent_id) => ({
     type: actionTypes.DELETE_NODE,
     data: {

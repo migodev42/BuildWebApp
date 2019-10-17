@@ -3,17 +3,16 @@ import Provider from './context/';
 import ThemeProvider from './features/ThemeProvider'
 import Nav from './features/Nav';
 import Main from './features/Main'
+import 'normalize.css';
 
 const App = () => {
-
-    return (<div className="Mindmap-App">
-    <Provider>
+    console.log('加载Rmind')
+    return (<Provider>
         <ThemeProvider>
             {/* <Nav /> */}
             <Main />
         </ThemeProvider>
-    </Provider>
-    </div>);
+    </Provider>);
 };
 
 export default App;

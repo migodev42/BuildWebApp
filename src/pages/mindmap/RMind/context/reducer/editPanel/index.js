@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 // import defaultMindmap from '../../../statics/defaultMindmap';
-import {findNode, deepCopy, setShowChildrenTrue} from '../../../methods/assistFunctions';
+import {deepCopy} from '../../../methods/assistFunctions';
 
 export const defaultValue_editPanel = {
     isShow:false,

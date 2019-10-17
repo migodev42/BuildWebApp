@@ -22,10 +22,6 @@ const Mindmap = ({container_ref}) => {
 
     const mindmap_json = useMemo(() => JSON.stringify(root_node), [root_node]); // 如果 root_node 没有 JSON.stringify，使用按键操作时有时会连续两次触发 useEffect，目前没查出来为什么。利用 useMemo 避免重复触发
 
-
-    /* 
-      监听键盘事件
-    */
     useEffect(() => {
         const handleKeydown = getKeydownEvent(nodeStatus, mindmapHook, historyHook);
         window.addEventListener('keydown', handleKeydown);
@@ -34,9 +30,6 @@ const Mindmap = ({container_ref}) => {
         }
     }, [nodeStatus]);
 
-     /* 
-      监听点击事件
-    */
     useEffect(() => {
         window.addEventListener('click', clearNodeStatus);
         return () => {
@@ -44,9 +37,6 @@ const Mindmap = ({container_ref}) => {
         }
     }, []);
 
-    /* 
-      记录操作历史
-    */
     useEffect(() => {
         localStorage.setItem('mindmap', mindmap_json);
         hDispatch(setHistory(mindmap_json, nodeStatus.cur_select || nodeStatus.cur_edit));

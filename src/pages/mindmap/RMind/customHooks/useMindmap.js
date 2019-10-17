@@ -29,14 +29,12 @@ const useMindmap = () => {
         editNode: node_id => {
             nDispatch(nodeStatusAction.setEdit(node_id));
         },
-        editNodeInfo:(node_id,info)=>{
-          mDispatch(mindmapAction.changeInfo(node_id, info));
-        //   nDispatch(nodeStatusAction.setSelect(node_id));
-          
-        },
         changeText: (node_id, text) => {
             mDispatch(mindmapAction.changeText(node_id, text));
         },
+        editNodeInfo:(node_id,info)=>{
+            mDispatch(mindmapAction.changeInfo(node_id, info));                      
+          },
         selectNode: (node_id, select_by_click) => {
             nDispatch(nodeStatusAction.setSelect(node_id, select_by_click));
         },

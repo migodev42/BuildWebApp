@@ -124,7 +124,7 @@ module.exports = function (webpackEnv) {
                 },
 
                 {
-                    test: /\.(woff|woff2|eot|otf||ttf)$/,
+                    test: /\.(woff|woff2|eot|otf|ttf)$/,
                     use: 'file-loader'
                 }
 

@@ -4,6 +4,7 @@ import nodeStatusReducer, {defaultValue_nodeStatus} from './reducer/nodeStatus';
 import historyReducer, {defaultValue_history} from './reducer/history';
 import globalReducer, {defaultValue_global} from './reducer/global';
 import editPanelReducer,{defaultValue_editPanel} from './reducer/editPanel';
+
 const context = React.createContext({});
 
 const WrappedProvider = props => {

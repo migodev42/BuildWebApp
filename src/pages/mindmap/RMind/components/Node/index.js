@@ -7,12 +7,11 @@ import * as refer from '../../statics/refer';
 import {handlePropagation} from '../../methods/assistFunctions';
 import Toolbar from './subComponents/Toolbar';
 import InputDiv from './subComponents/InputDiv';
-import '../../statics/zwicon.css';
+import MdPreview from '../mdPreview';
 
 const Node = ({layer, node, parent, node_refs, on_left}) => {
     const self = useRef();
-    const {nodeStatus:{state: nodeStatus, dispatch: nDispatch}, editPanel: {state:epState} } = useContext(context);
-
+    const {nodeStatus: {state: nodeStatus, dispatch: nDispatch}, editPanel: {state:epState}} = useContext(context);
     const mindmapHook = useMindmap();
 
     const handleSelectNode = () => {
@@ -52,10 +51,10 @@ const Node = ({layer, node, parent, node_refs, on_left}) => {
         id={node.id}
         ref={self}
         onClick={handlePropagation}>
-        {nodeStatus.cur_edit === node.id && 
+        {nodeStatus.cur_edit === node.id &&
         <InputDiv node_id={node.id}>{node.text}</InputDiv>}
         <div className={drop_area} data-tag={refer.DROP_AREA} onClick={handleSelectNode} onDoubleClick={handleEditNode} />
-        <p>{node.text} {node.info && <i className="zwicon-note" style={{fontSize:20}}></i>}</p>        
+        <p>{node.text} {node.info && <MdPreview mdtext={node.info}/>}</p>
         {(layer > 0 && node.children.length > 0) &&
         <button className={cx(toggle_button, (on_left ? button_left : button_right))} onClick={handleToggleChildren}>{node.showChildren ? '-' : '+'}</button>}
         {(nodeStatus.cur_select === node.id && nodeStatus.select_by_click) && !epState.isShow &&
@@ -78,7 +77,7 @@ margin: 20px 40px;
 padding: 15px;
 background-color: #ffffff;
 border: 1px solid var(${refer.THEME_MAIN});
-border-radius: 5px;
+border-radius: 15px;
 cursor: pointer;
 
 p {
