@@ -162,7 +162,7 @@ module.exports = function (webpackEnv) {
             staticOptions: {
                 redirect: true
             },
-            port: 3000,
+            port: 3007,
             // publicPath: "http://localhost:3000/public",                        // 虚拟服务器 serve 路径
             // hotOnly: true
         },
